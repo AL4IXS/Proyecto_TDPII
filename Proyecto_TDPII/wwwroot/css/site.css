@@ -1,16 +1,4 @@
-html {
-  font-size: 14px;
-}
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
 
 html {
   position: relative;
@@ -18,5 +6,72 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background: #f5f7fa;
+}
+
+.contenedor {
+    width: 90%;
+    margin: 0 auto;
+    background: #fff;
+    max-width: 1200px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, .1);
+    border-radius: 10px;
+}
+
+.nombre__mes {
+    text-align: center;
+    color: #51565d;
+    font-weight: 400;
+}
+
+.dias {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    place-items: center;
+    height: 45px;
+    border-bottom: 1px solid #a6a8b31f;
+    border-top: 1px solid #a6a8b31f;
+    color: #51565d;
+}
+
+.calendario {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    grid-auto-rows: 120px;
+}
+
+.calendario__dia {
+    border-bottom: 1px solid #a6a8b31f;
+    border-top: 1px solid #a6a8b31f;
+    padding: 14px 20px;
+    color: #51565d;
+}
+
+.first-day {
+    grid-column-start: 3;
+}
+
+.first-day2 {
+    grid-column-start: 5;
+}
+
+.first-day3 {
+    grid-column-start: 6;
+}
+
+.first-day4 {
+    grid-column-start: 2;
+}
+
+.first-day5 {
+    grid-column-start: 4;
+}
+
+.titulo {
+    background: #008080;
+}
+
+.menu {
+    background: #008080;
 }
