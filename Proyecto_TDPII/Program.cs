@@ -13,6 +13,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 
     //ESTO ES UNA PRUEBA HECHA POR ALEXIS
+
+    //ESTOS ES UNA SEGINDA PRUEBA 
 }
 
 app.UseHttpsRedirection();
