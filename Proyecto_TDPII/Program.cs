@@ -16,7 +16,7 @@ if (!app.Environment.IsDevelopment())
 
     //ESTOS ES UNA SEGINDA PRUEBA 
     
-    //HUIDA MASIVA A MIMIR
+    //HUIDA Masiva a ver youtube
 }
 
 app.UseHttpsRedirection();
