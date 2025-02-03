@@ -1,15 +1,5 @@
 
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-    margin-bottom: 60px;
-    background: #f5f7fa;
-}
-
 .contenedor {
     width: 90%;
     margin: 0 auto;
