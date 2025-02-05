@@ -1,5 +1,11 @@
 
 
+.menu {
+    position: fixed; /* Hace que el sidebar permanezca fijo en la pantalla */
+    left: 0; /* Lo coloca al borde izquierdo de la pantalla */
+    top: 0;
+}
+
 .contenedor {
     width: 90%;
     margin: 0 auto;
@@ -7,6 +13,9 @@
     max-width: 1200px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, .1);
     border-radius: 10px;
+    padding: 20px;
+    margin-left: 170px
+    
 }
 
 .nombre__mes {
@@ -59,9 +68,9 @@
 }
 
 .titulo {
-    background: #008080;
+    background: linear-gradient(90deg, #20B2AA, #008B8B);
 }
 
 .menu {
-    background: #008080;
+    background: linear-gradient(90deg, #008B8B, #20B2AA);
 }
