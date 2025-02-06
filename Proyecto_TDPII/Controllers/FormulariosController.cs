@@ -1,23 +1,23 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Proyecto_TDPII.Models;
+using System.Diagnostics;
 
 namespace Proyecto_TDPII.Controllers
 {
-    public class HomeController : Controller
+    public class FormulariosController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<FormulariosController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public FormulariosController(ILogger<FormulariosController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Crear_evento()
         {
             return View();
         }
-      
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
