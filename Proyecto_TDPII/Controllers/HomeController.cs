@@ -18,6 +18,11 @@ namespace Proyecto_TDPII.Controllers
             return View();
         }
 
+        public IActionResult Enero()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
