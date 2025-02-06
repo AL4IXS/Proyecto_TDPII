@@ -29,6 +29,17 @@ namespace Proyecto_TDPII.Controllers
 
         }
 
+        public IActionResult EditarEvento()
+        {
+
+            return View();
+        }
+
+        public IActionResult Eliminar()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
