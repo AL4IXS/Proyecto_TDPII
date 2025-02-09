@@ -5,4 +5,46 @@
 
 <h1>Crea tu evento</h1>
 <button name="button">Click me</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="Id">#</th>
+            <th scope="Nombre">First</th>
+            <th scope="Detalles">Last</th>
+            <th scope="Fecha de inicio">Last</th>
+            <th scope="Fecha de Finalizacion">Last</th>
+            <th scope="Ubicacion">Last</th>
+            <th scope=""></th>
+            <th scope=""></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        require_once'conexion.php';
+        $sql="SELECT * FROM registros";
+        $resultado=$conn->query($sql);
+
+        while($fila=$resultado->fetch_assoc()){
+
+        echo "
+        <tr>
+            "."
+            <td>".$fila['id']."</td>"."
+            <td>".$fila['nombre']."</td>"
+            ."
+            <td>".$fila['apellido']."</td>"
+            .'
+            <td><a type="button" class="btn btn-warning" href="modificar.php?id='.$fila['id'].'&nombre='.$fila['nombre'].'&apellido='.$fila['apellido'].'">Modificar</a></td>'
+            .'
+            <td>
+                <a type="button" href="eliminar.php?id='.$fila['id'].
+                        '" class="btn btn-danger">Eliminar</button></a>
+            </td>'
+            ."
+        </tr>";
+        }
+        $conn->close();
+        ?>
+    </tbody>
+</table>
 
