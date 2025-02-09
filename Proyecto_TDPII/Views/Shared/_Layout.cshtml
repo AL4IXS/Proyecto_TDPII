@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Proyecto_TDPII</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    
+    @if (ViewData["CssFile"] != null)
+    {
+        <link rel="stylesheet" href="@Url.Content(ViewData["CssFile"].ToString())" />
+    }
 </head>
 <body>
     <header>
@@ -113,7 +116,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp area="" asp-controller="Home" asp-action="Enero">Enero</a></li>
                                     <!--<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -->
-                                    <li><a class="dropdown-item" href="#">Febrero</a></li>
+                                    <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Febrero">Febrero</a></li>
                                     <li><a class="dropdown-item" href="#">Marzo</a></li>
                                     <li><a class="dropdown-item" href="#">Abril</a></li>
                                     <li><a class="dropdown-item" href="#">Mayo</a></li>
