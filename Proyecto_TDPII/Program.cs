@@ -1,7 +1,10 @@
+using Proyecto_TDPII.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ConexionMySQL>();
 
 var app = builder.Build();
 
