@@ -33,6 +33,53 @@ namespace Proyecto_TDPII.Controllers
             return View();
         }
 
+        public IActionResult Marzo()
+        {
+            return View();
+        }
+
+        public IActionResult Abril()
+        {
+            return View();
+        }
+
+        public IActionResult Mayo()
+        {
+            return View();
+        }
+
+        public IActionResult Junio()
+        {
+            return View();
+        }
+
+        public IActionResult Julio()
+        {
+            return View();
+        }
+
+        public IActionResult Agosto()
+        {
+            return View();
+        }
+
+        public IActionResult Septiembre()
+        {
+            return View();
+        }
+
+        public IActionResult Octubre()
+        {
+            return View();
+        }
+        public IActionResult Noviembre()
+        {
+            return View();
+        }
+        public IActionResult Diciembre()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
