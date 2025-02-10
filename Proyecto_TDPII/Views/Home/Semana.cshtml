@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Semana";
+    ViewData["CssFile"] = "~/css/calendario/semana.css";
+    ViewData["JsFile"] = "~/js/modal.js";
+}
+
+<div id="modal">
+<div class="calendar">
+    <section class="form-register">
+        <input class="controls form-control-sm" type="text" name="titulo" id="titulo" placeholder="Ingresa el titulo" aria-label=".form-control-sm">
+        <label for="horaFinalizacion">Ingresa la fecha:</label>
+        <input class="controls" type="date" name="fecha" id="fecha" placeholder="Ingresa la fecha">
+        <label for="horaInicio">Hora de Inicio:      </label>
+        <input class="controls2" type="time" name="horaI" id="horaI" placeholder="Ingresa la hora">
+        <label for="horaFinalizacion">Hora de Finalizacion:</label>
+        <input class="controls2" type="time" name="horaF" id="horaF" placeholder="Ingresa la hora">
+        <input class="controls" type="text" name="ubicacion" id="ubicacion" placeholder="Ingresa la ubicacion">
+        <textarea class="controls" id="descripcion" rows="5" placeholder="Ingresa una descripcion (opcional)"></textarea>
+        <input id="btn-cerrar-modal" class="bottons" type="submit" value="Guardar">
+    </section>
+
+</div>
+</div>

@@ -78,7 +78,7 @@
                                     <a href="#" class="nav-link px-0"> <span class="text-white d-none d-sm-inline">Dia</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-0"> <span class="text-white d-none d-sm-inline">Semana</span></a>
+                                    <a class="nav-link px-0" asp area="" asp-controller="Home" asp-action="Semana"> <span class="text-white d-none d-sm-inline">Semana</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -88,7 +88,7 @@
                             </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <span class="text-white d-none d-sm-inline">Evento</span></a>
+                                    <a class="nav-link px-0" id="btn-abrir-modal" asp area="" asp-controller="Home" asp-action="Semana"> <span class="text-white d-none d-sm-inline">Evento</span></a>
                                 </li>
                                 <li>
                                     <a href="#" class="nav-link px-0"> <span class="text-white d-none d-sm-inline">Tarea</span></a>
@@ -156,6 +156,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/modal.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
