@@ -12,49 +12,37 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-light navbar-light border-bottom box-shadow">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/img/icono_calendario.png" style="height:40px; width:50px;" />
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav  mx-auto gap-5">
-                        <li class="nav-item me-5 px-3">
-                            <label for="rdbt_1" class="form-check-label">Importante 1 </label>
-                            <input type="radio" class="form-check-input" id="rdbt_2" name="rd" />
-                            <!--  <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>  -->
-                        </li>
-                        <li class="nav-item me-5 px-3">
-                            <label for="rdbt_2" class="form-check-label">Importante 2 </label>
-                            <input type="radio" class="form-check-input" id="rdbt_1" name="rd" />
-                            <!--  <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>   -->
-                        </li>
-                        <li class="nav-item me-5 px-3">
-                           
-                            <label for="rdbt_3" class="form-check-label">Importante 3 </label>
-                            <input type="radio" class="form-check-input" id="rdbt_3" name="rd" />
-                            <!--<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -->
-                        </li>
-                        <li class="nav-item me-5 px-3">
+        <nav class="navbar navbar-light bg-dark py-0">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+               
+                <div class="d-flex align-items-center">
+                    <a class="navbar-brand me-2">
+                        <img src="~/img/icono_calendario.png" height="25px" alt="Icono Calendario" loading="lazy" />
+                    </a>
+                    <span class="navbar-brand mb-0 h5 text-white">Agenda</span>
+                </div>
 
-                            <label for="rdbt_4" class="form-check-label">Importante 4 </label>
-                            <input type="radio" class="form-check-input" id="rdbt_4" name="rd" />
-                            <!--<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -->
-                        </li>
+                
+                <form class="d-flex input-group w-25">
+                    <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon" style="border-radius: 30px 0 0 30px;" />
+                    <button class="btn btn-info" type="submit" id="btn_busqueda" style="border-radius: 0 30px 30px 0; padding: 5px;">
+                        <img src="~/img/lpa.png" width="20px" height="20px" class="text-center" />
+                    </button>
+                </form>
+
+                
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="~/img/usro.png" height="25px" width="25px"/>
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
                     </ul>
-                    <form class="d-flex" role="BuscarEvento">
-                        <input class="form-control me-2" type="search" placeholder="Buscar Evento" aria-label="BuscarEvento">
-                        <button class="btn btn-outline-success" type="submit">Buscar</button>
-                    </form>
                 </div>
             </div>
         </nav>
     </header>
-
 
     <div class="container-fluid">
         <div class="row flex-nowrap">
