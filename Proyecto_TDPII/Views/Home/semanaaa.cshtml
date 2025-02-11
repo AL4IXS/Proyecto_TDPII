@@ -1,0 +1,39 @@
+﻿@{
+
+    DateTime fechaInicio = new DateTime(2025, 2, 1);
+    List<string> diasSemana = new List<string> { "Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb" };
+
+    ViewData["Title"] = "Semana";
+}
+
+<div class="container my-4">
+    <h2 class="text-center">Calendario Semanal</h2>
+
+    <div class="calendar-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="calendar-header">
+                    <th class="time-column">Hora</th>
+                    @for (int i = 0; i < 7; i++)
+                    {
+                        <th class="day-column @(i == 2 ? "bg-primary text-white" : "")">
+                            @(diasSemana[i]) @(fechaInicio.AddDays(i).Day)
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int hour = 7; hour <= 18; hour++)
+                {
+                    <tr>
+                        <td class="time-column">@hour:00</td>
+                        @for (int day = 0; day < 7; day++)
+                        {
+                            <td class="time-slot"></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

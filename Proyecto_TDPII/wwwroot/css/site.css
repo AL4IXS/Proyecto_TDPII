@@ -31,3 +31,35 @@ body {
     padding: 20px;
     margin-left: 170px
 }
+
+
+.calendar-container {
+    width: 90%;
+    margin: auto;
+    overflow-x: auto;
+}
+
+.calendar-header {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.time-column {
+    width: 100px;
+    text-align: center;
+    font-weight: bold;
+    background: #333;
+    color: white;
+}
+
+.day-column {
+    width: 150px;
+    border-right: 1px solid #ddd;
+}
+
+.time-slot {
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+}
