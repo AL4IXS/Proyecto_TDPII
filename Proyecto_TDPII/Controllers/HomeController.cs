@@ -7,10 +7,18 @@ namespace Proyecto_TDPII.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ConexionMySQL _conexion;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ConexionMySQL conexion)
         {
             _logger = logger;
+            _conexion = conexion;
+        }
+
+        public IActionResult lista()
+        {
+            var usuario = _conexion.ObtenerUsuarios();
+            return View(usuario);
         }
 
         public IActionResult Index()
