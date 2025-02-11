@@ -29,7 +29,7 @@ namespace Proyecto_TDPII.Models
                 using (MySqlDataReader reader = comando.ExecuteReader())
                 {
                     while (reader.Read())
-                    {
+                    {//
                         usuario.Add(reader["nombre"].ToString());
                     }
                 }
