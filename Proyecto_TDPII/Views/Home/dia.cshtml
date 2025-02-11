@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Dia";
+    ViewData["CssFile"] = "~/css/calendario/dia.css";
+}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Columna izquierda para el día -->
+        <!--<div class="col-md-2 text-center bg-dark text-white p-4">
+            <h4 class="text-primary">LUN</h4>
+            <div class="day-circle">10</div>
+            <p class="timezone">GMT-6</p>
+        </div> -->
+
+        <!-- Columna derecha con el horario -->
+        <div class="col-md-10 schedule-container">
+            <div class="schedule">
+                <!-- Generamos las horas dinámicamente con un bucle en backend -->
+                <div class="time-slot">1 AM</div>
+                <div class="time-slot">2 AM</div>
+                <div class="time-slot">3 AM</div>
+                <div class="time-slot">4 AM</div>
+                <div class="time-slot">5 AM</div>
+                <div class="time-slot">6 AM</div>
+                <div class="time-slot">7 AM</div>
+                <div class="time-slot">8 AM</div>
+                <div class="time-slot">9 AM</div>
+                <div class="time-slot">10 AM</div>
+                <div class="time-slot">11 AM</div>
+                <div class="time-slot">12 PM</div>
+                <div class="time-slot">1 PM</div>
+                <div class="time-slot">2 PM</div>
+                <div class="time-slot">3 PM</div>
+                <div class="time-slot">4 PM</div>
+                <div class="time-slot">5 PM</div>
+                <div class="time-slot">6 PM</div>
+                <div class="time-slot">7 PM</div>
+                <div class="time-slot">8 PM</div>
+                <div class="time-slot">9 PM</div>
+                <div class="time-slot">11 PM</div>  
+            </div>
+        </div>
+    </div>
+</div>

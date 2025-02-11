@@ -49,3 +49,8 @@
     font-size: 16px;
     
 }
+
+.cerrar {
+    right: 5px; /* Ajusta el valor según sea necesario */
+    top: 10px; /* Ajusta el valor según sea necesario */
+}

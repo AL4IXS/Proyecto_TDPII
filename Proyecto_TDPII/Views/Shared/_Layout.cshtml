@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Proyecto_TDPII</title>
+    <link rel="stylesheet" href="~/css/calendario/semana.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     @if (ViewData["CssFile"] != null)
     {
@@ -63,7 +64,7 @@
                             </a>
                             <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a href="#" class="nav-link px-0"> <span class="text-white d-none d-sm-inline">Dia</span></a>
+                                    <a class="nav-link px-0" asp area="" asp-controller="Home" asp-action="dia"><span class="text-white d-none d-sm-inline">Dia</span></a>
                                 </li>
                                 <li>
                                     <a class="nav-link px-0" asp area="" asp-controller="Home" asp-action="Semana"> <span class="text-white d-none d-sm-inline">Semana</span></a>
@@ -76,7 +77,9 @@
                             </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                 <li class="w-100">
-                                    <a class="nav-link px-0" id="btn-abrir-modal" asp area="" asp-controller="Home" asp-action="Semana"> <span class="text-white d-none d-sm-inline">Evento</span></a>
+                                    <a class="nav-link px-8" data-bs-toggle="modal" data-bs-target="#myModal" asp area="" asp-controller="Home" asp-action="Semana">
+                                        Evento
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="#" class="nav-link px-0"> <span class="text-white d-none d-sm-inline">Tarea</span></a>
@@ -130,6 +133,41 @@
                 </main>
             </div>
             
+        </div>
+    </div>
+
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header bg-black">
+                    <h3 for="Evento" class="text-white"><strong>Evento</strong></h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body bg-black">
+                    <section class="form-register">
+                        <input class="controls form-control-sm" type="text" name="titulo" id="titulo" placeholder="Ingresa el titulo" aria-label=".form-control-sm">
+                        <label for="horaFinalizacion">Ingresa la fecha:</label>
+                        <input class="controls" type="date" name="fecha" id="fecha" placeholder="Ingresa la fecha">
+                        <label for="horaInicio">Hora de Inicio:      </label>
+                        <input class="controls2" type="time" name="horaI" id="horaI" placeholder="Ingresa la hora">
+                        <label for="horaFinalizacion">Hora de Finalizacion:</label>
+                        <input class="controls2" type="time" name="horaF" id="horaF" placeholder="Ingresa la hora">
+                        <input class="controls" type="text" name="ubicacion" id="ubicacion" placeholder="Ingresa la ubicacion">
+                        <textarea class="controls" id="descripcion" rows="5" placeholder="Ingresa una descripcion (opcional)"></textarea>
+                        <input id="btn-cerrar-modal" class="bottons btn-primary" type="button" value="Guardar">
+                    </section>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer bg-black">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
         </div>
     </div>
 
