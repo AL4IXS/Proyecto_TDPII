@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"]="Inicio Sesión";
+}
+
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card bg-dark text-white p-4 shadow-lg" style="width: 22rem;">
+        <div class="card-header text-center">
+            <h3>Iniciar Sesión</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            </form>
+        </div>
+        
+    </div>
+</div>
