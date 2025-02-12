@@ -1,0 +1,28 @@
+﻿@model List<Proyecto_TDPII.Models.Evento>
+
+<h2>Lista de Eventos</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titulo</th>
+            <th>Fecha</th>
+            <th>Hora Inicio </th>
+            <th>Hora Fin</th>
+            <th>Ubicación</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>@usuario.Id</td>
+                <td>@usuario.Titulo</td>
+                <td>@usuario.Fecha</td>
+                <td>@usuario.HoraInicio</td>
+                <td>@usuario.HoraFin</td>
+                <td>@usuario.Ubicacion</td>
+            </tr>
+        }
+    </tbody>
+</table>

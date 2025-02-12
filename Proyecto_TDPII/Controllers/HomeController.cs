@@ -14,10 +14,9 @@ namespace Proyecto_TDPII.Controllers
             _logger = logger;
             _conexion = conexion;
         }
-
         public IActionResult lista()
         {
-            var usuario = _conexion.ObtenerUsuarios();
+            var usuario = _conexion.ObtenerEventos();
             return View(usuario);
         }
 
@@ -38,9 +37,19 @@ namespace Proyecto_TDPII.Controllers
 
         public IActionResult Febrero()
         {
+            List<Evento> eventosFebrero = _conexion.ObtenerEventosPorMes(2);
+            return View(eventosFebrero);
+        }
+        [HttpPost]
+        public IActionResult GuardarEvento(Evento evento)
+        {
+            _conexion.InsertarEvento(evento);
+            return RedirectToAction("Index");
+        }
+        public IActionResult agregarevento()
+        {
             return View();
         }
-
         public IActionResult Marzo()
         {
             return View();
@@ -105,6 +114,11 @@ namespace Proyecto_TDPII.Controllers
         public IActionResult iniciosesion()
         {
             return View();
+        }
+        public IActionResult todos_eventos()
+        {
+            List<Evento> eventos = _conexion.ObtenerEventos();
+            return View(eventos);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

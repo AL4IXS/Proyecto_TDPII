@@ -16,26 +16,87 @@ namespace Proyecto_TDPII.Models
             _conexion = configuration.GetConnectionString("MiConexionMySQL");
         }
 
-        public List<string> ObtenerUsuarios()
+        public List<Evento> ObtenerEventos()
         {
-            List<string> usuario = new List<string>();
+            List<Evento> eventos = new List<Evento>();
 
             using (MySqlConnection conexion = new MySqlConnection(_conexion))
             {
                 conexion.Open();
-                string query = "SELECT Nombre FROM usuario";
+                string query = "SELECT id, titulo, fecha, hora_inicio, hora_fin, ubicacion, descripcion FROM evento";
                 MySqlCommand comando = new MySqlCommand(query, conexion);
 
                 using (MySqlDataReader reader = comando.ExecuteReader())
                 {
                     while (reader.Read())
-                    {//
-                        usuario.Add(reader["nombre"].ToString());
+                    {
+                        eventos.Add(new Evento
+                        {
+                            Id = reader.GetInt32("id"),  // ✅ Ahora el SELECT incluye "id"
+                            Titulo = reader.GetString("titulo"),
+                            Fecha = reader.GetString("fecha"),
+                            HoraInicio = reader.GetString("hora_inicio"),
+                            HoraFin = reader.GetString("hora_fin"),
+                            Ubicacion = reader.GetString("ubicacion"),
+                            Descripcion = reader.GetString("descripcion")
+                        });
                     }
                 }
             }
+            return eventos;
+        }
 
-            return usuario;
+        public void InsertarEvento(Evento evento)
+        {
+            using (MySqlConnection conexion = new MySqlConnection(_conexion))
+            {
+                conexion.Open();
+
+
+                string query = "INSERT INTO evento (titulo, fecha, hora_inicio, hora_fin, ubicacion, descripcion) " +
+                               "VALUES (@titulo, @fecha, @horaI, @horaF, @ubicacion, @descripcion)";
+
+
+                MySqlCommand insertar = new MySqlCommand(query, conexion);
+
+
+                insertar.Parameters.AddWithValue("@titulo", evento.Titulo);
+                insertar.Parameters.AddWithValue("@fecha", evento.Fecha);
+                insertar.Parameters.AddWithValue("@horaI", evento.HoraInicio);
+                insertar.Parameters.AddWithValue("@horaF", evento.HoraFin);
+                insertar.Parameters.AddWithValue("@ubicacion", evento.Ubicacion);
+                insertar.Parameters.AddWithValue("@descripcion", evento.Descripcion);
+
+                insertar.ExecuteNonQuery();
+            }
+        }
+
+        public List<Evento> ObtenerEventosPorMes(int mes)
+        {
+            List<Evento> eventos = new List<Evento>();
+
+            using (MySqlConnection conexion = new MySqlConnection(_conexion))
+            {
+                conexion.Open();
+                string query = "SELECT * FROM evento WHERE MONTH(fecha) = @mes";
+                MySqlCommand comando = new MySqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@mes", mes);
+
+                using (MySqlDataReader reader = comando.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        eventos.Add(new Evento
+                        {
+                            Titulo = reader["titulo"].ToString(),
+                            Fecha = reader["fecha"].ToString(),
+                            Ubicacion = reader["ubicacion"].ToString(),
+                            Descripcion = reader["descripcion"].ToString()
+                        });
+                    }
+                }
+            }
+            return eventos;
         }
 
     }
