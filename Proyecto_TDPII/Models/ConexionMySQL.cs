@@ -32,7 +32,7 @@ namespace Proyecto_TDPII.Models
                     {
                         eventos.Add(new Evento
                         {
-                            Id = reader.GetInt32("id"),  // ✅ Ahora el SELECT incluye "id"
+                            Id = reader.GetInt32("id"),
                             Titulo = reader.GetString("titulo"),
                             Fecha = reader.GetString("fecha"),
                             HoraInicio = reader.GetString("hora_inicio"),
