@@ -32,7 +32,8 @@ namespace Proyecto_TDPII.Controllers
 
         public IActionResult Enero()
         {
-            return View();
+            List<Evento> eventosEnero = _conexion.ObtenerEventosPorMes(1);
+            return View(eventosEnero);
         }
 
         public IActionResult Febrero()
@@ -52,50 +53,60 @@ namespace Proyecto_TDPII.Controllers
         }
         public IActionResult Marzo()
         {
-            return View();
+            List<Evento> eventosMarzo = _conexion.ObtenerEventosPorMes(3);
+            return View(eventosMarzo);
         }
 
         public IActionResult Abril()
         {
-            return View();
+            List<Evento> eventosAbril = _conexion.ObtenerEventosPorMes(4);
+            return View(eventosAbril);
         }
 
         public IActionResult Mayo()
         {
-            return View();
+            List<Evento> eventosMayo = _conexion.ObtenerEventosPorMes(5);
+            return View(eventosMayo);
         }
 
         public IActionResult Junio()
         {
-            return View();
+            List<Evento> eventosJunio = _conexion.ObtenerEventosPorMes(6);
+            return View(eventosJunio);
         }
 
         public IActionResult Julio()
         {
-            return View();
+            List<Evento> eventosJulio = _conexion.ObtenerEventosPorMes(7);
+            return View(eventosJulio);
         }
 
         public IActionResult Agosto()
         {
-            return View();
+            List<Evento> eventosAgosto = _conexion.ObtenerEventosPorMes(8);
+            return View(eventosAgosto);
         }
 
         public IActionResult Septiembre()
         {
-            return View();
+            List<Evento> eventosSeptiembre = _conexion.ObtenerEventosPorMes(9);
+            return View(eventosSeptiembre);
         }
 
         public IActionResult Octubre()
         {
-            return View();
+            List<Evento> eventosOctubre = _conexion.ObtenerEventosPorMes(10);
+            return View(eventosOctubre);
         }
         public IActionResult Noviembre()
         {
-            return View();
+            List<Evento> eventosNoviembre = _conexion.ObtenerEventosPorMes(11);
+            return View(eventosNoviembre);
         }
         public IActionResult Diciembre()
         {
-            return View();
+            List<Evento> eventosDiciembre= _conexion.ObtenerEventosPorMes(12);
+            return View(eventosDiciembre);
         }
         public IActionResult Semana()
         {

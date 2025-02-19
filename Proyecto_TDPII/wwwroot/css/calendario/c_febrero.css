@@ -28,9 +28,9 @@
 }
 
 .first-day {
-    grid-column-start: 3;
+    grid-column-start: 6;
 }
-
+/*
 .first-day2 {
     grid-column-start: 5;
 }
@@ -45,3 +45,5 @@
 
 .first-day5 {
     grid-column-start: 4;
+}
+    */
