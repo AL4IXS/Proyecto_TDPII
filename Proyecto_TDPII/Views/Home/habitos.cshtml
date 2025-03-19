@@ -2,10 +2,42 @@
     ViewData["Title"] = "Formato Habitos";
 }
 
-
-<div class="contenedor text-center ">
-    <div class="col py-3">
-        <h1>Listo para que implementes el formato que se te pidio</h1>
-        
+<div class="container mt-4">
+    <h3 class="text-center">Habit Tracker</h3>
+    <div class="d-flex justify-content-between mb-3">
+        <p><strong>Fecha:</strong> <input type="date" class="form-control"></p>
+        <p><strong>Semana:</strong> <input type="text" class="form-control w-50"></p>
     </div>
+
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>Hábitos</th>
+                <th>Dom</th>
+                <th>Lun</th>
+                <th>Mar</th>
+                <th>Mié</th>
+                <th>Jue</th>
+                <th>Vie</th>
+                <th>Sáb</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Filas de hábitos -->
+            <script>
+                for (let i = 1; i <= 10; i++) {
+                    document.write(`<tr>
+                        <td><input type="text" class="form-control" placeholder="Hábito ${i}"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                    </tr>`);
+                }
+            </script>
+        </tbody>
+    </table>
 </div>
