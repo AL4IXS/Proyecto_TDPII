@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -39,7 +39,6 @@
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
                         <li><a class="dropdown-item" href="#">Perfil</a></li>
-                        <!-- Elimina el href="#" para que ASP.NET Core maneje la URL automáticamente -->
                         <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="iniciosesion">Iniciar Sesion</a></li>
                         <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
                     </ul>
@@ -96,6 +95,31 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+
+
+                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-bootstrap"></i>
+                                <span class="text-white ms-1 d-none d-sm-inline">Hábitos +</span>
+                            </a>
+
+
+                            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                                <li class="w-100">
+
+                                    <a class="nav-link px-8" asp-area="" asp-controller="Home" asp-action="habitos">
+                                        Ver
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-0">
+                                        <span class="text-white d-none d-sm-inline">Tarea</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
                         <a class="nav-link px-8" asp-area="" asp-controller="Home" asp-action="todos_eventos">
                             Ver eventos
                         </a>
