@@ -98,6 +98,27 @@ namespace Proyecto_TDPII.Models
             }
             return eventos;
         }
+        public void InsertarUsuario(Usuario usuario)
+{
+    using (MySqlConnection conexion = new MySqlConnection(_conexion))
+    {
+        conexion.Open();
+
+        string query = "INSERT INTO usuario (nombre, apellido, edad, correo, contraseña) " +
+                       "VALUES ( @nombre, @apellido, @edad, @correo, @contraseña)";
+
+        MySqlCommand insertar = new MySqlCommand(query, conexion);
+
+        // Asumiendo que los parámetros están en el objeto Usuario
+        insertar.Parameters.AddWithValue("@nombre", usuario.Nombre);
+        insertar.Parameters.AddWithValue("@apellido", usuario.Apellido);
+        insertar.Parameters.AddWithValue("@edad", usuario.Edad);
+        insertar.Parameters.AddWithValue("@correo", usuario.Correo);
+        insertar.Parameters.AddWithValue("@contraseña", usuario.Contraseña);
+
+        insertar.ExecuteNonQuery();
+    }
+}
 
     }
 }

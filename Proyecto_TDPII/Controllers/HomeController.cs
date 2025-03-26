@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient;
 using Proyecto_TDPII.Models;
 
 namespace Proyecto_TDPII.Controllers
@@ -8,11 +9,15 @@ namespace Proyecto_TDPII.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ConexionMySQL _conexion;
+        private readonly AuthService _authService;
 
-        public HomeController(ILogger<HomeController> logger, ConexionMySQL conexion)
+
+        public HomeController(ILogger<HomeController> logger, ConexionMySQL conexion, AuthService authService)
         {
             _logger = logger;
             _conexion = conexion;
+            _authService = authService; 
+
         }
         public IActionResult lista()
         {
@@ -51,6 +56,11 @@ namespace Proyecto_TDPII.Controllers
         public IActionResult GuardarEvento(Evento evento)
         {
             _conexion.InsertarEvento(evento);
+            return RedirectToAction("Index");
+        }
+        public IActionResult GuardarUsusario(Usuario usuario)
+        {
+            _conexion.InsertarUsuario(usuario);
             return RedirectToAction("Index");
         }
         public IActionResult agregarevento()
@@ -135,15 +145,57 @@ namespace Proyecto_TDPII.Controllers
             return View();
         }
 
-        public IActionResult iniciosesion()
+        public IActionResult InicioSesion()
         {
             return View();
         }
+
+
         public IActionResult todos_eventos()
         {
             List<Evento> eventos = _conexion.ObtenerEventos();
             return View(eventos);
         }
+
+        [HttpPost]
+        public IActionResult Login(string email, string password)
+        {
+            if (_authService.ValidarUsuario(email, password))
+            {
+                return RedirectToAction("Dashboard");
+            }
+
+            TempData["Error"] = "Credenciales incorrectas";
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Registro(string nombre, string apellido, int edad, string email, string password)
+        {
+            var usuario = new Usuario
+            {
+                Nombre = nombre,
+                Apellido = apellido,
+                Edad = edad,
+                Correo = email,
+                Contraseña = password
+            };
+
+            try
+            {
+                var resultado = _authService.RegistrarUsuario(usuario);
+                TempData["Success"] = resultado;
+                return RedirectToAction("Index");
+            }
+            catch (MySqlException ex)
+            {
+                TempData["Error"] = ex.Number == 1062 ?
+                    "El correo ya está registrado" :
+                    "Error al registrar";
+                return RedirectToAction("Index");
+            }
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

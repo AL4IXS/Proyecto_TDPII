@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ConexionMySQL>();
+builder.Services.AddScoped<AuthService>(); 
 
 var app = builder.Build();
 
