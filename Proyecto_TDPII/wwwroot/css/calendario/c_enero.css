@@ -1,7 +1,13 @@
-﻿.nombre__mes {
+﻿.mes.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nombre__mes {
     text-align: center;
-    color: #343a40; /* Color más oscuro */
-    font-weight: 500;
+    flex-grow: 1; /* Permite que el nombre del mes se expanda para centrarse */
+    margin: 0;
 }
 
 .dias {
@@ -12,18 +18,20 @@
 .calendario {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: 80px; /* Reducir la altura de las celdas */
-    gap: 2px; /* Espacio entre celdas */
+    grid-auto-rows: 150px; /* Aumenta la altura de los cuadros */
+    gap: 2px;
+}
+
+.prev{
+    color: #ccc;
 }
 
 .calendario__dia {
-    border: 1px solid #dee2e6; /* Bordes más sutiles */
-    padding: 10px;
-    text-align: center;
+    border: 1px solid #dee2e6;
+    padding: 15px; 
+    text-align: left; 
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
+    flex-direction: column; 
 }
 
     .calendario__dia:hover {
