@@ -1,4 +1,7 @@
-﻿@{
+﻿@model List<Evento>
+@using System.Globalization
+
+@{
     DateTime fechaInicio = new DateTime(DateTime.Now.Year, 1, 1);
     List<string> diasSemana = new List<string> { "Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb" };
     ViewData["Title"] = "Calendario Semanal";
@@ -6,6 +9,17 @@
 
 <div class="container my-4">
     <h2 class="text-center">Calendario Semanal</h2>
+
+    <!-- Formulario para seleccionar la semana y el año -->
+    <form id="weekSelector" class="mb-3">
+        <label for="semana">Semana:</label>
+        <input type="number" id="semana" name="semana" min="1" max="53" value="@ViewBag.Semana" class="form-control d-inline w-auto">
+
+        <label for="anio">Año:</label>
+        <input type="number" id="anio" name="anio" value="@ViewBag.Anio" class="form-control d-inline w-auto">
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
 
     <div class="d-flex justify-content-between mb-3">
         <button id="prevWeek" class="btn btn-secondary">Semana Anterior</button>
@@ -21,7 +35,8 @@
                     @for (int i = 0; i < 7; i++)
                     {
                         <th class="day-column">
-                            <span class="day-name">@(diasSemana[i])</span> <span class="day-date"></span>
+                            <span class="day-name">@diasSemana[i]</span>
+                            <span class="day-date"></span>
                         </th>
                     }
                 </tr>
@@ -33,7 +48,24 @@
                         <td class="time-column">@hour:00</td>
                         @for (int day = 0; day < 7; day++)
                         {
-                            <td class="time-slot"></td>
+                            <td class="time-slot">
+                                @{
+                                    var eventosDeLaSemana = Model.Where(e =>
+                                    DateTime.TryParse(e.Fecha, out var fechaConvertida) &&
+                                    CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(fechaConvertida, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday) == ViewBag.Semana
+                                    && fechaConvertida.Year == ViewBag.Anio).ToList();
+                                }
+
+                                @if (eventosDeLaSemana.Any())
+                                {
+                                    foreach (var evento in eventosDeLaSemana)
+                                    {
+                                        <div class="evento">
+                                            <span>@evento.Titulo</span> - <small>@evento.Ubicacion</small>
+                                        </div>
+                                    }
+                                }
+                            </td>
                         }
                     </tr>
                 }
@@ -44,6 +76,16 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("weekSelector").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let semana = document.getElementById("semana").value;
+            let anio = document.getElementById("anio").value;
+
+            // Redirigir a la misma página con los parámetros semana y año
+            window.location.href = `/Home/Semanaaa?semana=${semana}&anio=${anio}`;
+        });
+
         let currentDate = new Date();
         let currentWeekStart = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay()));
         const days = document.querySelectorAll(".day-date");
@@ -75,3 +117,4 @@
         updateCalendar();
     });
 </script>
+

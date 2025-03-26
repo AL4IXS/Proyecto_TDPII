@@ -77,7 +77,7 @@ namespace Proyecto_TDPII.Models
 
             using (MySqlConnection conexion = new MySqlConnection(_conexion))
             {
-                //conexion.Open();
+                conexion.Open();
                 string query = "SELECT * FROM evento WHERE MONTH(fecha) = @mes";
                 MySqlCommand comando = new MySqlCommand(query, conexion);
                 comando.Parameters.AddWithValue("@mes", mes);
@@ -98,6 +98,36 @@ namespace Proyecto_TDPII.Models
             }
             return eventos;
         }
+
+        public List<Evento> ObtenerEventosPorSemana(int semana, int anio)
+        {
+            List<Evento> eventos = new List<Evento>();
+            using (MySqlConnection conexion = new MySqlConnection(_conexion))
+            {
+                conexion.Open();
+                string query = "SELECT * FROM evento WHERE WEEK(fecha, 1) = @semana AND YEAR(fecha) = @anio";
+                MySqlCommand comando = new MySqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@semana", semana);
+                comando.Parameters.AddWithValue("@anio", anio);
+
+                using (MySqlDataReader reader = comando.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        eventos.Add(new Evento
+                        {
+                            Titulo = reader["titulo"].ToString(),
+                            Fecha = reader["fecha"].ToString(),
+                            Ubicacion = reader["ubicacion"].ToString(),
+                            Descripcion = reader["descripcion"].ToString()
+                        });
+                    }
+                }
+            }
+            return eventos;
+        }
+
+
 
     }
 }

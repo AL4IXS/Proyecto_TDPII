@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto_TDPII.Models;
 
@@ -124,11 +125,21 @@ namespace Proyecto_TDPII.Controllers
             return View();
         }
 
-        public IActionResult semanaaa()
+        public IActionResult Semanaaa(int? semana, int? anio)
         {
-            return View();
-        }
+            // Si no se recibe una semana o año, usa los valores actuales
+            int semanaActual = semana ?? CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            int anioActual = anio ?? DateTime.Now.Year;
 
+            // Obtener eventos según la semana y el año
+            List<Evento> eventos = _conexion.ObtenerEventosPorSemana(semanaActual, anioActual);
+
+            // Pasar la semana y el año a la vista
+            ViewBag.Semana = semanaActual;
+            ViewBag.Anio = anioActual;
+
+            return View(eventos);
+        }
         public IActionResult iniciosesion()
         {
             return View();
