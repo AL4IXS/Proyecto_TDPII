@@ -1,13 +1,17 @@
 ﻿@{
-
-    DateTime fechaInicio = new DateTime(2025, 2, 1);
+    DateTime fechaInicio = new DateTime(DateTime.Now.Year, 1, 1);
     List<string> diasSemana = new List<string> { "Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb" };
-
-    ViewData["Title"] = "Semana";
+    ViewData["Title"] = "Calendario Semanal";
 }
 
 <div class="container my-4">
     <h2 class="text-center">Calendario Semanal</h2>
+
+    <div class="d-flex justify-content-between mb-3">
+        <button id="prevWeek" class="btn btn-secondary">Semana Anterior</button>
+        <h4 id="currentWeek"></h4>
+        <button id="nextWeek" class="btn btn-secondary">Semana Siguiente</button>
+    </div>
 
     <div class="calendar-container">
         <table class="table table-bordered">
@@ -16,14 +20,14 @@
                     <th class="time-column">Hora</th>
                     @for (int i = 0; i < 7; i++)
                     {
-                        <th class="day-column @(i == 2 ? "bg-primary text-white" : "")">
-                            @(diasSemana[i]) @(fechaInicio.AddDays(i).Day)
+                        <th class="day-column">
+                            <span class="day-name">@(diasSemana[i])</span> <span class="day-date"></span>
                         </th>
                     }
                 </tr>
             </thead>
             <tbody>
-                @for (int hour = 1; hour <= 24; hour++)
+                @for (int hour = 0; hour < 24; hour++)
                 {
                     <tr>
                         <td class="time-column">@hour:00</td>
@@ -37,3 +41,37 @@
         </table>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentDate = new Date();
+        let currentWeekStart = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay()));
+        const days = document.querySelectorAll(".day-date");
+        const currentWeekDisplay = document.getElementById("currentWeek");
+        const prevWeekBtn = document.getElementById("prevWeek");
+        const nextWeekBtn = document.getElementById("nextWeek");
+
+        function updateCalendar() {
+            let weekStart = new Date(currentWeekStart);
+            currentWeekDisplay.textContent = `${weekStart.toLocaleDateString()} - ${new Date(weekStart.setDate(weekStart.getDate() + 6)).toLocaleDateString()}`;
+
+            days.forEach((day, index) => {
+                let date = new Date(currentWeekStart);
+                date.setDate(date.getDate() + index);
+                day.textContent = date.getDate();
+            });
+        }
+
+        prevWeekBtn.addEventListener("click", function () {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            updateCalendar();
+        });
+
+        nextWeekBtn.addEventListener("click", function () {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            updateCalendar();
+        });
+
+        updateCalendar();
+    });
+</script>

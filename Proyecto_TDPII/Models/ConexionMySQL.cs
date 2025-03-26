@@ -77,7 +77,7 @@ namespace Proyecto_TDPII.Models
 
             using (MySqlConnection conexion = new MySqlConnection(_conexion))
             {
-                conexion.Open();
+                //conexion.Open();
                 string query = "SELECT * FROM evento WHERE MONTH(fecha) = @mes";
                 MySqlCommand comando = new MySqlCommand(query, conexion);
                 comando.Parameters.AddWithValue("@mes", mes);
