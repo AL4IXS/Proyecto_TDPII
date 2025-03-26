@@ -2,9 +2,11 @@
 }
 
 .nombre__mes {
-    text-align: center;
-    color: #51565d;
-    font-weight: 400;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: #000000;
 }
 
 .dias {
