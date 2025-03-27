@@ -22,7 +22,12 @@ namespace Proyecto_TDPII.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("iniciosesion");
+        }
+
+        public IActionResult iniciosesion()
+        {
+            return View("index");
         }
 
         public IActionResult Privacy()
@@ -47,6 +52,14 @@ namespace Proyecto_TDPII.Controllers
             List<Evento> eventosFebrero = _conexion.ObtenerEventosPorMes(2);
             return View(eventosFebrero);
         }
+
+        [HttpPost]
+        public IActionResult Login()
+        {
+            
+            return RedirectToAction("Index"); 
+        }
+
         [HttpPost]
         public IActionResult GuardarEvento(Evento evento)
         {
@@ -135,10 +148,6 @@ namespace Proyecto_TDPII.Controllers
             return View();
         }
 
-        public IActionResult iniciosesion()
-        {
-            return View();
-        }
         public IActionResult todos_eventos()
         {
             List<Evento> eventos = _conexion.ObtenerEventos();
