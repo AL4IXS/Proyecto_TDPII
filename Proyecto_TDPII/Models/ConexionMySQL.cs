@@ -138,5 +138,42 @@ namespace Proyecto_TDPII.Models
 
             return eventos;
         }
+
+        public List<Evento> ObtenerEventosPorDia(string fecha)
+        {
+            var eventos = new List<Evento>();
+            string fechaStr = fecha;
+
+            using (var conexion = new MySqlConnection(_conexion))
+            {
+                conexion.Open();
+                string query = @"SELECT * FROM evento 
+                       WHERE fecha = @fecha
+                       ORDER BY hora_inicio";
+
+                using (var comando = new MySqlCommand(query, conexion))
+                {
+                    comando.Parameters.AddWithValue("@fecha", fechaStr);
+
+                    using (var reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            eventos.Add(new Evento
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Titulo = reader["titulo"].ToString(),
+                                Fecha = reader["fecha"].ToString(),
+                                hora_inicio = reader["hora_inicio"].ToString(),
+                                Hora_fin = reader["hora_fin"].ToString(),
+                                Ubicacion = reader["ubicacion"].ToString(),
+                                Descripcion = reader["descripcion"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            return eventos;
+        }
     }
-}
+    }

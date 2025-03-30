@@ -120,28 +120,15 @@ namespace Proyecto_TDPII.Controllers
         {
             return View();
         }
-        public IActionResult dia()
+       public IActionResult Dia(string fecha)
         {
-            return View();
+            string fechaActual = fecha;
+            var eventos = _conexion.ObtenerEventosPorDia(fechaActual);
+            ViewBag.Fecha = fechaActual;
+            return View(eventos);
         }
 
-        //public IActionResult Semanaaa(int? semana, int? anio)
-        //{
-        //    // Si no se recibe una semana o año, usa los valores actuales
-        //    int semanaActual = semana ?? CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
-        //    int anioActual = anio ?? DateTime.Now.Year;
 
-        //    // Obtener eventos según la semana y el año
-        //    List<Evento> eventos = _conexion.ObtenerEventosPorSemana(semanaActual, anioActual);
-
-        //    // Pasar la semana y el año a la vista
-        //    ViewBag.Semana = semanaActual;
-        //    ViewBag.Anio = anioActual;
-
-        //    return View(eventos);
-        //}
-
-        // Usar el año actual si no se proporciona uno
 
         public IActionResult Semanaaa(int? semana, int? anio)
         {

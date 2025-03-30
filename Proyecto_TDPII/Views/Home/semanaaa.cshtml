@@ -2,7 +2,7 @@
 @using System.Globalization
 
 @{
-    var diasSemana = new[] { "Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb" };
+    var diasSemana = new[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
     var primerDiaSemana = (DateTime)ViewBag.PrimerDiaSemana;
 }
 
@@ -43,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int hour = 0; hour < 22; hour++)
+                @for (int hour = 0; hour < 23; hour++)
                 {
                     <tr>
                         <td class="time-column">@hour:00 - @(hour + 1):00</td>

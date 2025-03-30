@@ -1,46 +1,174 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    ViewData["Title"] = "Dia";
-    ViewData["CssFile"] = "~/css/calendario/dia.css";
-}
-<div class="container-fluid">
-    <div class="row">
-        <!-- Columna izquierda para el día -->
-        <!--<div class="col-md-2 text-center bg-dark text-white p-4">
-            <h4 class="text-primary">LUN</h4>
-            <div class="day-circle">10</div>
-            <p class="timezone">GMT-6</p>
-        </div> -->
-
-        <!-- Columna derecha con el horario -->
-        <div class="col-md-10 schedule-container">
-            <div class="schedule">
-                <!-- Generamos las horas dinámicamente con un bucle en backend -->
-                <div class="time-slot">1 AM</div>
-                <div class="time-slot">2 AM</div>
-                <div class="time-slot">3 AM</div>
-                <div class="time-slot">4 AM</div>
-                <div class="time-slot">5 AM</div>
-                <div class="time-slot">6 AM</div>
-                <div class="time-slot">7 AM</div>
-                <div class="time-slot">8 AM</div>
-                <div class="time-slot">9 AM</div>
-                <div class="time-slot">10 AM</div>
-                <div class="time-slot">11 AM</div>
-                <div class="time-slot">12 PM</div>
-                <div class="time-slot">1 PM</div>
-                <div class="time-slot">2 PM</div>
-                <div class="time-slot">3 PM</div>
-                <div class="time-slot">4 PM</div>
-                <div class="time-slot">5 PM</div>
-                <div class="time-slot">6 PM</div>
-                <div class="time-slot">7 PM</div>
-                <div class="time-slot">8 PM</div>
-                <div class="time-slot">9 PM</div>
-                <div class="time-slot">11 PM</div>  
-            </div>
+﻿@* <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calendario Diario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hora-columna {
+            text-align: left;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center" id="selected-date"></h2>
+        <div class="text-center mb-3">
+            <input type="date" id="date-picker" class="form-control w-25 mx-auto">
         </div>
+        <table class="table table-bordered table-striped mt-3">
+            <thead>
+                <tr>
+                    <th class="hora-columna" style="width: 15%">Hora</th>
+                </tr>
+            </thead>
+            <tbody id="hour-table">
+                <!-- Se generarán las horas dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let tbody = document.getElementById("hour-table");
+            let datePicker = document.getElementById("date-picker");
+            let selectedDate = document.getElementById("selected-date");
+
+            function generateHours() {
+                tbody.innerHTML = ""; // Limpiar antes de agregar nuevas filas
+
+                for (let i = 0; i < 24; i++) {
+                    let tr = document.createElement("tr");
+                    let tdHour = document.createElement("td");
+
+                    tdHour.textContent = `${i.toString().padStart(2, '0')}:00`; // Formato 00:00
+                    tdHour.classList.add("hora-columna");
+
+                    tr.appendChild(tdHour);
+                    tbody.appendChild(tr);
+                }
+            }
+
+            function updateSelectedDate(dateValue) {
+                let date = new Date(dateValue);
+                date.setUTCHours(12, 0, 0, 0); // Evitar desfase por zona horaria
+
+                let options = { weekday: 'long', day: 'numeric', month: 'long' };
+                selectedDate.textContent = date.toLocaleDateString('es-ES', options);
+            }
+
+            // Inicializar con la fecha actual
+            let today = new Date().toISOString().split('T')[0];
+            datePicker.value = today;
+            updateSelectedDate(today);
+            generateHours();
+
+            datePicker.addEventListener("change", function() {
+                updateSelectedDate(this.value);
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> *@
+@model List<Evento>
+@using System.Globalization
+
+@{
+    // Obtener fecha del ViewBag como string
+    string fechaStr = ViewBag.Fecha?.ToString() ?? DateTime.Today.ToString("yyyy-MM-dd");
+
+    // Parsear a DateTime solo para mostrar formato legible
+    DateTime fechaParaMostrar;
+    if (!DateTime.TryParse(fechaStr, out fechaParaMostrar))
+    {
+        fechaParaMostrar = DateTime.Today;
+    }
+
+    // Configurar cultura en español
+    var cultura = new CultureInfo("es-ES");
+    var diaSemana = fechaParaMostrar.ToString("dddd", cultura);
+    var mes = fechaParaMostrar.ToString("MMMM", cultura);
+}
+
+<div class="container my-4">
+    <h2 class="text-center">Calendario Diario</h2>
+
+    <div class="d-flex justify-content-between mb-3">
+        <a asp-action="Dia"
+           asp-route-fecha="@fechaParaMostrar.AddDays(-1).ToString("yyyy-MM-dd")"
+           class="btn btn-secondary">
+            Día Anterior
+        </a>
+
+        <h4>@diaSemana @fechaParaMostrar.Day de @mes de @fechaParaMostrar.Year</h4>
+
+        <a asp-action="Dia"
+           asp-route-fecha="@fechaParaMostrar.AddDays(1).ToString("yyyy-MM-dd")"
+           class="btn btn-secondary">
+            Día Siguiente
+        </a>
+    </div>
+
+    <div class="text-center mb-3">
+        <input type="date" id="date-picker" value="@fechaStr" class="form-control w-25 mx-auto">
+    </div>
+
+    <div class="calendar-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="time-column">Hora</th>
+                    <th class="day-column @(fechaParaMostrar.Date == DateTime.Today ? "today" : "")">
+                        Eventos del día
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int hour = 8; hour < 22; hour++)
+                {
+                    <tr>
+                        <td class="time-column">@hour:00 - @(hour + 1):00</td>
+                        <td class="time-slot">
+                            @{
+                                var eventosHora = Model.Where(e =>
+                                {
+                                    if (TimeSpan.TryParse(e.hora_inicio, out var horaInicio))
+                                    {
+                                        return horaInicio.Hours == hour;
+                                    }
+                                    return false;
+                                }).ToList();
+                            }
+
+                            @foreach (var evento in eventosHora)
+                            {
+                                <div class="evento" data-toggle="tooltip" title="@evento.Descripcion">
+                                    <strong>@evento.Titulo</strong>
+                                    <div class="evento-ubicacion">@evento.Ubicacion</div>
+                                    <small>@evento.hora_inicio - @evento.Hora_fin</small>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('#date-picker').change(function() {
+                window.location.href = '@Url.Action("Dia")' + '?fecha=' + $(this).val();
+            });
+        });
+    </script>
+}
