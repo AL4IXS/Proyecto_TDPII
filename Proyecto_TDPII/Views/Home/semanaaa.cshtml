@@ -1,4 +1,4 @@
-﻿@model List<Evento>
+﻿@* @model List<Evento>
 @using System.Globalization
 
 @{
@@ -11,15 +11,7 @@
     <h2 class="text-center">Calendario Semanal</h2>
 
     <!-- Formulario para seleccionar la semana y el año -->
-    <form id="weekSelector" class="mb-3">
-        <label for="semana">Semana:</label>
-        <input type="number" id="semana" name="semana" min="1" max="53" value="@ViewBag.Semana" class="form-control d-inline w-auto">
-
-        <label for="anio">Año:</label>
-        <input type="number" id="anio" name="anio" value="@ViewBag.Anio" class="form-control d-inline w-auto">
-
-        <button type="submit" class="btn btn-primary">Actualizar</button>
-    </form>
+    
 
     <div class="d-flex justify-content-between mb-3">
         <button id="prevWeek" class="btn btn-secondary">Semana Anterior</button>
@@ -42,49 +34,65 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int hour = 0; hour < 24; hour++)
+                @for (int semana = 1; semana <= 53; semana++)
                 {
-                    <tr>
-                        <td class="time-column">@hour:00</td>
-                        @for (int day = 0; day < 7; day++)
-                        {
-                            <td class="time-slot">
-                                @{
-                                    var eventosDeLaSemana = Model.Where(e =>
-                                    DateTime.TryParse(e.Fecha, out var fechaConvertida) &&
-                                    CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(fechaConvertida, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday) == ViewBag.Semana
-                                    && fechaConvertida.Year == ViewBag.Anio).ToList();
-                                }
+                    // Filtrar eventos por semana y año
+                    var eventosDeLaSemana = Model.Where(e =>
+                    DateTime.TryParse(e.Fecha, out var fechaConvertida) &&
+                    CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(fechaConvertida, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday) == semana &&
+                    fechaConvertida.Year == ViewBag.Anio).ToList();
 
-                                @if (eventosDeLaSemana.Any())
-                                {
-                                    foreach (var evento in eventosDeLaSemana)
+                    <div class="calendario__semana">
+                        <strong>Semana @semana</strong>
+
+                        @if (eventosDeLaSemana.Any())
+                        {
+                            // Agrupar eventos por día de la semana
+                            var diasDeLaSemana = eventosDeLaSemana
+                            .GroupBy(e => e.Fecha != null && DateTime.TryParse(e.Fecha, out var fecha) ? fecha.DayOfWeek : DayOfWeek.Sunday)
+                            .OrderBy(g => g.Key)
+                            .ToList();
+
+                            // Mostrar eventos para cada día
+                            foreach (var diaGrupo in diasDeLaSemana)
+                            {
+                                <div class="calendario__dia">
+                                    <strong>@diaGrupo.Key</strong>
+                                   @{var eventosPorHora = diaGrupo.GroupBy(e => DateTime.TryParse(e.Fecha, out var fechaConvertida) ? fechaConvertida.Hour : 0).OrderBy(g => g.Key).ToList();
+                                   
+                                    // Mostrar los eventos por hora 
+                                    }
+                                    @foreach (var horaGrupo in eventosPorHora) // Aseguramos que horaGrupo esté dentro del contexto
                                     {
-                                        <div class="evento">
-                                            <span>@evento.Titulo</span> - <small>@evento.Ubicacion</small>
+                                        <div class="hora">
+                                            <strong>@horaGrupo.Key:00</strong>
+
+                                            // Mostrar eventos para esta hora
+                                            @foreach (var evento in horaGrupo) // Ahora estamos dentro del contexto adecuado de horaGrupo
+                                            {
+                                                <div class="evento">
+                                                    <span>@evento.Titulo</span> - <small>@evento.Ubicacion</small>
+                                                </div>
+                                            }
                                         </div>
                                     }
-                                }
-                            </td>
+                                </div>
+                            }
                         }
-                    </tr>
+                        else
+                        {
+                            <div class="sin-eventos">No hay eventos esta semana.</div>
+                        }
+                    </div>
                 }
+
             </tbody>
         </table>
     </div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("weekSelector").addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            let semana = document.getElementById("semana").value;
-            let anio = document.getElementById("anio").value;
-
-            // Redirigir a la misma página con los parámetros semana y año
-            window.location.href = `/Home/Semanaaa?semana=${semana}&anio=${anio}`;
-        });
+    
 
         let currentDate = new Date();
         let currentWeekStart = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay()));
@@ -116,5 +124,136 @@
 
         updateCalendar();
     });
-</script>
+</script> *@
+ @model List<Evento>
+@using System.Globalization
 
+@{
+    var diasSemana = new[] { "Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb" };
+    var primerDiaSemana = (DateTime)ViewBag.PrimerDiaSemana;
+}
+
+<div class="container my-4">
+    <h2 class="text-center">Calendario Semanal</h2>
+
+    <div class="d-flex justify-content-between mb-3">
+        <a asp-action="Semana"
+           asp-route-semana="@(ViewBag.Semana - 1)"
+           asp-route-anio="@ViewBag.Anio"
+           class="btn btn-secondary @(ViewBag.Semana == 1 ? "disabled" : "")">
+            Semana Anterior
+        </a>
+
+        <h4>Semana @ViewBag.Semana (@primerDiaSemana.ToString("dd MMM") - @primerDiaSemana.AddDays(6).ToString("dd MMM yyyy"))</h4>
+
+        <a asp-action="Semana"
+           asp-route-semana="@(ViewBag.Semana + 1)"
+           asp-route-anio="@ViewBag.Anio"
+           class="btn btn-secondary @(ViewBag.Semana == 53 ? "disabled" : "")">
+            Semana Siguiente
+        </a>
+    </div>
+
+    <div class="calendar-container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="time-column">Hora</th>
+                    @for (int i = 0; i < 7; i++)
+                    {
+                        var fechaDia = primerDiaSemana.AddDays(i);
+                        <th class="day-column @(fechaDia.Date == DateTime.Today ? "today" : "")">
+                            <div>@diasSemana[i]</div>
+                            <div>@fechaDia.Day</div>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int hour = 6; hour < 22; hour++)
+                {
+                    <tr>
+                        <td class="time-column">@hour:00 - @(hour + 1):00</td>
+                        @for (int day = 0; day < 7; day++)
+                        {
+                            var fechaDia = primerDiaSemana.AddDays(day);
+                            var fechaDiaStr = fechaDia.ToString("yyyy-MM-dd");
+
+                            <td class="time-slot">
+                                @{
+                                    var eventosHora = Model.Where(e =>
+                                    {
+                                        // Parsear la fecha y hora
+                                        if (DateTime.TryParse(e.Fecha, out var fechaEvento) &&
+                                            TimeSpan.TryParse(e.HoraInicio, out var horaInicio))
+                                        {
+                                            return fechaEvento.Date == fechaDia.Date &&
+                                                horaInicio.Hours == hour;
+                                        }
+                                        return false;
+                                    }).ToList();
+                                }
+
+                                @foreach (var evento in eventosHora)
+                                {
+                                    <div class="evento" data-toggle="tooltip" title="@evento.Descripcion">
+                                        <strong>@evento.Titulo</strong>
+                                        <div class="evento-ubicacion">@evento.Ubicacion</div>
+                                        <small>@evento.HoraInicio - @evento.HoraFin</small>
+                                    </div>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .time-slot {
+            height: 100px;
+            vertical-align: top;
+            position: relative;
+        }
+
+        .evento {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 5px;
+            margin: 2px 0;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+            .evento strong {
+                display: block;
+                font-weight: bold;
+            }
+
+        .evento-ubicacion {
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        .evento small {
+            font-size: 0.7rem;
+            color: #777;
+        }
+
+        .today {
+            background-color: #fff8e1 !important;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

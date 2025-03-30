@@ -113,7 +113,7 @@ namespace Proyecto_TDPII.Controllers
         }
         public IActionResult Diciembre()
         {
-            List<Evento> eventosDiciembre= _conexion.ObtenerEventosPorMes(12);
+            List<Evento> eventosDiciembre = _conexion.ObtenerEventosPorMes(12);
             return View(eventosDiciembre);
         }
         public IActionResult Semana()
@@ -125,21 +125,51 @@ namespace Proyecto_TDPII.Controllers
             return View();
         }
 
+        //public IActionResult Semanaaa(int? semana, int? anio)
+        //{
+        //    // Si no se recibe una semana o año, usa los valores actuales
+        //    int semanaActual = semana ?? CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        //    int anioActual = anio ?? DateTime.Now.Year;
+
+        //    // Obtener eventos según la semana y el año
+        //    List<Evento> eventos = _conexion.ObtenerEventosPorSemana(semanaActual, anioActual);
+
+        //    // Pasar la semana y el año a la vista
+        //    ViewBag.Semana = semanaActual;
+        //    ViewBag.Anio = anioActual;
+
+        //    return View(eventos);
+        //}
+
+        // Usar el año actual si no se proporciona uno
+
         public IActionResult Semanaaa(int? semana, int? anio)
         {
-            // Si no se recibe una semana o año, usa los valores actuales
-            int semanaActual = semana ?? CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
             int anioActual = anio ?? DateTime.Now.Year;
+            int semanaActual = semana ?? ISOWeek.GetWeekOfYear(DateTime.Now);
 
-            // Obtener eventos según la semana y el año
-            List<Evento> eventos = _conexion.ObtenerEventosPorSemana(semanaActual, anioActual);
+            // Validación
+            if (semanaActual < 1 || semanaActual > 53 || anioActual < 2000 || anioActual > 2100)
+            {
+                semanaActual = ISOWeek.GetWeekOfYear(DateTime.Now);
+                anioActual = DateTime.Now.Year;
+            }
 
-            // Pasar la semana y el año a la vista
-            ViewBag.Semana = semanaActual;
+            var eventos = _conexion.ObtenerEventosPorSemana(semanaActual, anioActual);
+
+            // Calcular el primer día de la semana
+            var primerDiaSemana = ISOWeek.ToDateTime(anioActual, semanaActual, DayOfWeek.Monday);
+
             ViewBag.Anio = anioActual;
+            ViewBag.Semana = semanaActual;
+            ViewBag.PrimerDiaSemana = primerDiaSemana;
 
             return View(eventos);
         }
+
+
+
+
         public IActionResult iniciosesion()
         {
             return View();

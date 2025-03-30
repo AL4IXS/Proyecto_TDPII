@@ -99,35 +99,44 @@ namespace Proyecto_TDPII.Models
             return eventos;
         }
 
+
         public List<Evento> ObtenerEventosPorSemana(int semana, int anio)
         {
-            List<Evento> eventos = new List<Evento>();
-            using (MySqlConnection conexion = new MySqlConnection(_conexion))
+            var eventos = new List<Evento>();
+
+            using (var conexion = new MySqlConnection(_conexion))
             {
                 conexion.Open();
-                string query = "SELECT * FROM evento WHERE WEEK(fecha, 1) = @semana AND YEAR(fecha) = @anio";
-                MySqlCommand comando = new MySqlCommand(query, conexion);
-                comando.Parameters.AddWithValue("@semana", semana);
-                comando.Parameters.AddWithValue("@anio", anio);
+                var query = @"SELECT * FROM evento 
+                     WHERE WEEK(STR_TO_DATE(fecha, '%Y-%m-%d'), 1) = @semana 
+                     AND YEAR(STR_TO_DATE(fecha, '%Y-%m-%d')) = @anio
+                     ORDER BY fecha, horaInicio";
 
-                using (MySqlDataReader reader = comando.ExecuteReader())
+                using (var comando = new MySqlCommand(query, conexion))
                 {
-                    while (reader.Read())
+                    comando.Parameters.AddWithValue("@semana", semana);
+                    comando.Parameters.AddWithValue("@anio", anio);
+
+                    using (var reader = comando.ExecuteReader())
                     {
-                        eventos.Add(new Evento
+                        while (reader.Read())
                         {
-                            Titulo = reader["titulo"].ToString(),
-                            Fecha = reader["fecha"].ToString(),
-                            Ubicacion = reader["ubicacion"].ToString(),
-                            Descripcion = reader["descripcion"].ToString()
-                        });
+                            eventos.Add(new Evento
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Titulo = reader["titulo"].ToString(),
+                                Fecha = reader["fecha"].ToString(),
+                                HoraInicio = reader["horaInicio"].ToString(),
+                                HoraFin = reader["horaFin"].ToString(),
+                                Ubicacion = reader["ubicacion"].ToString(),
+                                Descripcion = reader["descripcion"].ToString()
+                            });
+                        }
                     }
                 }
             }
+
             return eventos;
         }
-
-
-
     }
 }
