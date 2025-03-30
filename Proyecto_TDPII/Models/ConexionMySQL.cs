@@ -35,8 +35,8 @@ namespace Proyecto_TDPII.Models
                             Id = reader.GetInt32("id"),
                             Titulo = reader.GetString("titulo"),
                             Fecha = reader.GetString("fecha"),
-                            HoraInicio = reader.GetString("hora_inicio"),
-                            HoraFin = reader.GetString("hora_fin"),
+                            hora_inicio = reader.GetString("hora_inicio"),
+                            Hora_fin = reader.GetString("hora_fin"),
                             Ubicacion = reader.GetString("ubicacion"),
                             Descripcion = reader.GetString("descripcion")
                         });
@@ -62,8 +62,8 @@ namespace Proyecto_TDPII.Models
 
                 insertar.Parameters.AddWithValue("@titulo", evento.Titulo);
                 insertar.Parameters.AddWithValue("@fecha", evento.Fecha);
-                insertar.Parameters.AddWithValue("@horaI", evento.HoraInicio);
-                insertar.Parameters.AddWithValue("@horaF", evento.HoraFin);
+                insertar.Parameters.AddWithValue("@horaI", evento.hora_inicio);
+                insertar.Parameters.AddWithValue("@horaF", evento.Hora_fin);
                 insertar.Parameters.AddWithValue("@ubicacion", evento.Ubicacion);
                 insertar.Parameters.AddWithValue("@descripcion", evento.Descripcion);
 
@@ -107,17 +107,17 @@ namespace Proyecto_TDPII.Models
             using (var conexion = new MySqlConnection(_conexion))
             {
                 conexion.Open();
-                var query = @"SELECT * FROM evento 
-                     WHERE WEEK(STR_TO_DATE(fecha, '%Y-%m-%d'), 1) = @semana 
-                     AND YEAR(STR_TO_DATE(fecha, '%Y-%m-%d')) = @anio
-                     ORDER BY fecha, horaInicio";
+                String query = @"SELECT * FROM evento 
+                 WHERE WEEK(STR_TO_DATE(fecha, '%Y-%m-%d'), 1) = @semana 
+                 AND YEAR(STR_TO_DATE(fecha, '%Y-%m-%d')) = @anio
+                 ORDER BY fecha, hora_inicio";
+
 
                 using (var comando = new MySqlCommand(query, conexion))
                 {
                     comando.Parameters.AddWithValue("@semana", semana);
                     comando.Parameters.AddWithValue("@anio", anio);
-
-                    using (var reader = comando.ExecuteReader())
+                    using (MySqlDataReader reader = comando.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -126,8 +126,8 @@ namespace Proyecto_TDPII.Models
                                 Id = Convert.ToInt32(reader["id"]),
                                 Titulo = reader["titulo"].ToString(),
                                 Fecha = reader["fecha"].ToString(),
-                                HoraInicio = reader["horaInicio"].ToString(),
-                                HoraFin = reader["horaFin"].ToString(),
+                                hora_inicio = reader["hora_inicio"].ToString(),
+                                Hora_fin = reader["hora_fin"].ToString(),
                                 Ubicacion = reader["ubicacion"].ToString(),
                                 Descripcion = reader["descripcion"].ToString()
                             });

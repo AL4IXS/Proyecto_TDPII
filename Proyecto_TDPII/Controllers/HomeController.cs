@@ -148,7 +148,7 @@ namespace Proyecto_TDPII.Controllers
             int anioActual = anio ?? DateTime.Now.Year;
             int semanaActual = semana ?? ISOWeek.GetWeekOfYear(DateTime.Now);
 
-            // Validación
+            // Validación*
             if (semanaActual < 1 || semanaActual > 53 || anioActual < 2000 || anioActual > 2100)
             {
                 semanaActual = ISOWeek.GetWeekOfYear(DateTime.Now);

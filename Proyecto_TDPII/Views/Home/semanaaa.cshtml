@@ -137,7 +137,7 @@
     <h2 class="text-center">Calendario Semanal</h2>
 
     <div class="d-flex justify-content-between mb-3">
-        <a asp-action="Semana"
+        <a asp-action="Semanaaa"
            asp-route-semana="@(ViewBag.Semana - 1)"
            asp-route-anio="@ViewBag.Anio"
            class="btn btn-secondary @(ViewBag.Semana == 1 ? "disabled" : "")">
@@ -146,7 +146,7 @@
 
         <h4>Semana @ViewBag.Semana (@primerDiaSemana.ToString("dd MMM") - @primerDiaSemana.AddDays(6).ToString("dd MMM yyyy"))</h4>
 
-        <a asp-action="Semana"
+        <a asp-action="Semanaaa"
            asp-route-semana="@(ViewBag.Semana + 1)"
            asp-route-anio="@ViewBag.Anio"
            class="btn btn-secondary @(ViewBag.Semana == 53 ? "disabled" : "")">
@@ -170,7 +170,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int hour = 6; hour < 22; hour++)
+                @for (int hour = 0; hour < 22; hour++)
                 {
                     <tr>
                         <td class="time-column">@hour:00 - @(hour + 1):00</td>
@@ -185,7 +185,7 @@
                                     {
                                         // Parsear la fecha y hora
                                         if (DateTime.TryParse(e.Fecha, out var fechaEvento) &&
-                                            TimeSpan.TryParse(e.HoraInicio, out var horaInicio))
+                                            TimeSpan.TryParse(e.hora_inicio, out var horaInicio))
                                         {
                                             return fechaEvento.Date == fechaDia.Date &&
                                                 horaInicio.Hours == hour;
@@ -199,7 +199,7 @@
                                     <div class="evento" data-toggle="tooltip" title="@evento.Descripcion">
                                         <strong>@evento.Titulo</strong>
                                         <div class="evento-ubicacion">@evento.Ubicacion</div>
-                                        <small>@evento.HoraInicio - @evento.HoraFin</small>
+                                        <small>@evento.hora_inicio - @evento.Hora_fin</small>
                                     </div>
                                 }
                             </td>
@@ -210,45 +210,6 @@
         </table>
     </div>
 </div>
-
-@section Styles {
-    <style>
-        .time-slot {
-            height: 100px;
-            vertical-align: top;
-            position: relative;
-        }
-
-        .evento {
-            background-color: #e3f2fd;
-            border-left: 4px solid #2196F3;
-            padding: 5px;
-            margin: 2px 0;
-            border-radius: 3px;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
-            .evento strong {
-                display: block;
-                font-weight: bold;
-            }
-
-        .evento-ubicacion {
-            font-size: 0.8rem;
-            color: #555;
-        }
-
-        .evento small {
-            font-size: 0.7rem;
-            color: #777;
-        }
-
-        .today {
-            background-color: #fff8e1 !important;
-        }
-    </style>
-}
 
 @section Scripts {
     <script>
