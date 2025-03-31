@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto_TDPII.Models;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Proyecto_TDPII.Controllers
 {
@@ -8,6 +9,7 @@ namespace Proyecto_TDPII.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ConexionMySQL _conexion;
+        private readonly Consultas_Login _cl;
 
         public HomeController(ILogger<HomeController> logger, ConexionMySQL conexion)
         {
@@ -46,19 +48,35 @@ namespace Proyecto_TDPII.Controllers
             List<Evento> eventosEnero = _conexion.ObtenerEventosPorMes(1);
             return View(eventosEnero);
         }
-
+        
         public IActionResult Febrero()
         {
             List<Evento> eventosFebrero = _conexion.ObtenerEventosPorMes(2);
             return View(eventosFebrero);
         }
 
+
         [HttpPost]
-        public IActionResult Login()
+        public ActionResult InicioSesion(Usuario u)
         {
-            
-            return RedirectToAction("Index"); 
+            var servicio = new Consultas_Login();
+            bool credencialesCorrectas = servicio.ValidarUsuario(u);
+
+            if (credencialesCorrectas)
+                return View("Index"); // Acceso permitido
+            else
+                return Content("Credenciales incorrectas"); // Mensaje simple
         }
+
+
+       [HttpPost]
+        public IActionResult Registro(Usuario u)
+        {
+            var reg = new Consultas_Login();
+            reg.Registar(u);
+            return View("registroo");
+        }
+       
 
         [HttpPost]
         public IActionResult GuardarEvento(Evento evento)

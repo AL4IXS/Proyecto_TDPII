@@ -39,14 +39,14 @@
         <div class="tab-content">
             <div class="tab-pane fade show active" id="login">
                 <h2 class="text-center mb-4">INICIAR SESIÓN</h2>
-                <form asp-controller="Home" asp-action="iniciosesion" method="post">
+                <form asp-controller="Home" asp-action="InicioSesion" method="post">
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" required>
+                        <input type="email" class="form-control" name="correo" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" required>
+                        <input type="password" class="form-control" name="contraseña" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Ingresar</button>
                 </form>
@@ -54,18 +54,14 @@
 
             <div class="tab-pane fade" id="registro">
                 <h2 class="text-center mb-4">REGISTRARSE</h2>
-                <form asp-controller="Home"  asp-action="iniciosesion" method="post">
+                <form asp-controller="Home"  asp-action="Registro" method="post">
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" required>
+                        <input type="email" class="form-control" name="correo2" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Nombre</label>
-                        <input type="text" class="form-control" required>
+                        <input type="password" class="form-control" name="contraseña2" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Registrarse</button>
                 </form>
