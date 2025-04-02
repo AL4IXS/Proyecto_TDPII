@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto_TDPII.Models;
+using Proyecto_TDPII.Models.Proyecto_TDPII.Models;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Proyecto_TDPII.Controllers
