@@ -1,4 +1,4 @@
-﻿ <!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,23 +15,31 @@
     <header>
         <nav class="navbar navbar-light bg-dark py-0">
             <div class="container-fluid d-flex align-items-center justify-content-between">
-               
+
                 <div class="d-flex align-items-center">
                     <a class="navbar-brand me-2">
                         <img src="~/img/calemi.png" height="25px" alt="Icono Calendario" loading="lazy" />
                     </a>
                     <span class="navbar-brand mb-0 h5 text-white">Agenda</span>
-                </div>      
+                </div>
 
 
-                
+                <form class="d-flex input-group w-25">
+                    <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon" style="border-radius: 30px 0 0 30px;" />
+                    <button class="btn btn-info" type="submit" id="btn_busqueda" style="border-radius: 0 30px 30px 0; padding: 5px;">
+                        <img src="~/img/lpa.png" width="20px" height="20px" class="text-center" />
+                    </button>
+                </form>
+
+
+
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="~/img/usro.png" height="25px" width="25px"/>
+                        <img src="~/img/usro.png" height="25px" width="25px" />
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                        <li><a class="dropdown-item" asp-area=""  asp-controller="Home" asp-action="Perfil">Perfil</a></li>
-                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="iniciosesion">Iniciar Sesion</a></li>
+                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Perfil">Perfil</a></li>
+                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="iniciosesion" asp-route-showmodal="true">Iniciar Sesion</a></li>
                         <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
                     </ul>
                 </div>
@@ -80,11 +88,6 @@
                                         Evento
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0">
-                                        <span class="text-white d-none d-sm-inline">Tarea</span>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                         <li>
@@ -103,11 +106,7 @@
                                         Ver
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0">
-                                        <span class="text-white d-none d-sm-inline">Tarea</span>
-                                    </a>
-                                </li>
+
                             </ul>
                         </li>
 
@@ -115,10 +114,9 @@
                         <a class="nav-link px-8" asp-area="" asp-controller="Home" asp-action="todos_eventos">
                             Ver eventos
                         </a>
-                        
+
                         <li>
-                            <a  asp-area="" asp-controller="Home" asp-action="lista" class="nav-link px-0 align-middle">
-                                <!--<a class="nav-link px-0" asp area="" asp-controller="Home" asp-action="Semana"> <span class="text-white d-none d-sm-inline">Semana</span></a>-->
+                            <a asp-area="" asp-controller="Home" asp-action="lista" class="nav-link px-0 align-middle">
 
                                 <i class="fs-4 bi-table"></i> <span class="text-white  d-none d-sm-inline">Eliminar</span>
                             </a>
@@ -131,7 +129,6 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp area="" asp-controller="Home" asp-action="Enero">Enero</a></li>
-                                    <!--<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -->
                                     <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Febrero">Febrero</a></li>
                                     <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Marzo">Marzo</a></li>
                                     <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Abril">Abril</a></li>
@@ -148,8 +145,8 @@
 
 
                             </div>
-                        <hr/>
-                       
+                            <hr />
+
                         <li class="nav-item">
                             <a href="#" class="nav-link align-middle px-0">
                                 <i class="fs-4 bi-house"></i> <a><span class="text-white ms-1 d-none d-sm-inline">Salir</span></a>
@@ -165,10 +162,10 @@
                     @RenderBody()
                 </main>
             </div>
-            
+
         </div>
     </div>
-  
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

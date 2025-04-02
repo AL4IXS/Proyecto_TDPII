@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Proyecto_TDPII.Models;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Proyecto_TDPII.Controllers
 {
@@ -9,6 +10,7 @@ namespace Proyecto_TDPII.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ConexionMySQL _conexion;
+        private readonly Consultas_Login _cl;
 
         public HomeController(ILogger<HomeController> logger, ConexionMySQL conexion)
         {
@@ -23,7 +25,12 @@ namespace Proyecto_TDPII.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("iniciosesion");
+        }
+
+        public IActionResult iniciosesion()
+        {
+            return View("index");
         }
 
         public IActionResult Privacy()
@@ -48,6 +55,30 @@ namespace Proyecto_TDPII.Controllers
             List<Evento> eventosFebrero = _conexion.ObtenerEventosPorMes(2);
             return View(eventosFebrero);
         }
+
+
+        [HttpPost]
+        public ActionResult InicioSesion(Usuario u)
+        {
+            var servicio = new Consultas_Login();
+            bool credencialesCorrectas = servicio.ValidarUsuario(u);
+
+            if (credencialesCorrectas)
+                return View("Index"); // Acceso permitido
+            else
+                return Content("Credenciales incorrectas"); // Mensaje simple
+        }
+
+
+        [HttpPost]
+        public IActionResult Registro(Usuario u)
+        {
+            var reg = new Consultas_Login();
+            reg.Registar(u);
+            return View("registroo");
+        }
+
+
         [HttpPost]
         public IActionResult GuardarEvento(Evento evento)
         {
@@ -138,6 +169,7 @@ namespace Proyecto_TDPII.Controllers
 
         public IActionResult Semanaaa(int? semana, int? anio)
         {
+            return View();
             int anioActual = anio ?? DateTime.Now.Year;
             int semanaActual = semana ?? ISOWeek.GetWeekOfYear(DateTime.Now);
 
@@ -161,12 +193,6 @@ namespace Proyecto_TDPII.Controllers
         }
 
 
-
-
-        public IActionResult iniciosesion()
-        {
-            return View();
-        }
         public IActionResult todos_eventos()
         {
             List<Evento> eventos = _conexion.ObtenerEventos();
