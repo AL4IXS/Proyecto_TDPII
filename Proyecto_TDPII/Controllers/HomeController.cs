@@ -31,6 +31,12 @@ namespace Proyecto_TDPII.Controllers
             return View();
         }
 
+
+        public IActionResult Perfil()
+        {
+            return View();
+        }
+
         public IActionResult Enero()
         {
             List<Evento> eventosEnero = _conexion.ObtenerEventosPorMes(1);
