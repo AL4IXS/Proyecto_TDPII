@@ -8,9 +8,9 @@ namespace Proyecto_TDPII.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ConexionMySQL _conexion;
+        private readonly ConsultaMySQL _conexion;
 
-        public HomeController(ILogger<HomeController> logger, ConexionMySQL conexion)
+        public HomeController(ILogger<HomeController> logger, ConsultaMySQL conexion)
         {
             _logger = logger;
             _conexion = conexion;
