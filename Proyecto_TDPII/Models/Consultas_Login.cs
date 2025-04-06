@@ -6,44 +6,30 @@ namespace Proyecto_TDPII.Models
     {
 
 
-        private string c = "Server=localhost;Port=3306;database=proyecto_tdpp;user=root;password=root;";
+        private string conexion = "Server=localhost;Port=3306;database=proyecto_tdpp;user=root;password=root;";
 
-        public bool ValidarUsuario(Usuario u)
+        public bool VerificarCredenciales(Usuario u)
         {
-            using (MySqlConnection conn = new MySqlConnection(c))
-            {
-                conn.Open();
-                string query = "SELECT COUNT(*) FROM Usuario WHERE correo = @correo AND contrasena = @contrasena";
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@correo", u.correo);
-                    cmd.Parameters.AddWithValue("@contrasena", u.contrasena);
+            using var conn = new MySqlConnection(conexion);
+            conn.Open();
 
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    return count > 0;
-                }
-            }
+            using var cmd = new MySqlCommand(SqlQueries.VerificarCredenciales, conn);
+            cmd.Parameters.AddWithValue("@correo", u.correo);
+            cmd.Parameters.AddWithValue("@contrasena", u.contrasena);
+
+            return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
         }
 
-        public void Registar(Usuario u)
+        public void InsertarUsuario(Usuario u)
         {
-            using (MySqlConnection conexion = new MySqlConnection(c))
-            {
-                conexion.Open();
+            using var conn = new MySqlConnection(conexion);
+            conn.Open();
 
+            using var cmd = new MySqlCommand(SqlQueries.InsertarUsuario, conn);
+            cmd.Parameters.AddWithValue("@correo", u.correo);
+            cmd.Parameters.AddWithValue("@contrasena", u.contrasena);
 
-                string query = "INSERT INTO Usuario (correo, contrasena) VALUES (@correo, @contrasena)";
-
-
-                MySqlCommand com = new MySqlCommand(query, conexion);
-
-
-                com.Parameters.AddWithValue("@correo",u.correo);
-                com.Parameters.AddWithValue("@contrasena",u.contrasena);
-
-
-                com.ExecuteNonQuery();
-            }
+            cmd.ExecuteNonQuery();
         }
 
     }

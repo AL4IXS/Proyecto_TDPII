@@ -9,12 +9,13 @@ namespace Proyecto_TDPII.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ConexionMySQL _conexion;
-        private readonly Consultas_Login _cl;
+        private readonly Consultas_Login _consultas;
 
-        public HomeController(ILogger<HomeController> logger, ConexionMySQL conexion)
+        public HomeController(ILogger<HomeController> logger, ConexionMySQL conexion, Consultas_Login consultas)
         {
             _logger = logger;
             _conexion = conexion;
+            _consultas = consultas;
         }
         public IActionResult lista()
         {
@@ -55,28 +56,22 @@ namespace Proyecto_TDPII.Controllers
             return View(eventosFebrero);
         }
 
+        [HttpPost]
+        public IActionResult InicioSesion(Usuario u)
+        {
+            if (_consultas.VerificarCredenciales(u))
+                return View("Index");
+            else
+                return Content("Credenciales incorrectas");
+        }
 
         [HttpPost]
-        public ActionResult InicioSesion(Usuario u)
-        {
-            var servicio = new Consultas_Login();
-            bool credencialesCorrectas = servicio.ValidarUsuario(u);
-
-            if (credencialesCorrectas)
-                return View("Index"); // Acceso permitido
-            else
-                return Content("Credenciales incorrectas"); // Mensaje simple
-        }
-
-
-       [HttpPost]
         public IActionResult Registro(Usuario u)
         {
-            var reg = new Consultas_Login();
-            reg.Registar(u);
-            return View("registroo");
+            _consultas.InsertarUsuario(u);
+            return View("Registro");
         }
-       
+
 
         [HttpPost]
         public IActionResult GuardarEvento(Evento evento)
