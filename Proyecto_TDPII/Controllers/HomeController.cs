@@ -9,11 +9,14 @@ namespace Proyecto_TDPII.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ConsultaMySQL _conexion;
+        private readonly ConsultasLogin _consultas;
 
-        public HomeController(ILogger<HomeController> logger, ConsultaMySQL conexion)
+        public HomeController(ILogger<HomeController> logger, ConsultaMySQL conexion, ConsultasLogin consultas)
         {
             _logger = logger;
             _conexion = conexion;
+            _consultas = consultas;
+
         }
         public IActionResult lista()
         {
@@ -23,7 +26,7 @@ namespace Proyecto_TDPII.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("iniciosesion");
         }
 
         public IActionResult Privacy()
@@ -52,6 +55,25 @@ namespace Proyecto_TDPII.Controllers
         {
             return View();
         }
+
+
+        [HttpPost]
+        public IActionResult InicioSesion(Usuario u)
+        {
+            if (_consultas.VerificarCredenciales(u))
+                return View("Index");
+            else
+                return Content("Credenciales incorrectas");
+        }
+
+        [HttpPost]
+        public IActionResult Registro(Usuario u)
+        {
+            _consultas.InsertarUsuario(u);
+            return View("Registro");
+        }
+
+
 
         public IActionResult habitos()
         {
@@ -159,7 +181,7 @@ namespace Proyecto_TDPII.Controllers
 
         public IActionResult iniciosesion()
         {
-            return View();
+            return View("index");
         }
         public IActionResult todos_eventos()
         {
