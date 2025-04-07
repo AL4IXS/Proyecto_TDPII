@@ -1,4 +1,4 @@
-﻿ <!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,44 +12,18 @@
     }
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-light bg-dark py-0">
-            <div class="container-fluid d-flex align-items-center justify-content-between">
-               
-                <div class="d-flex align-items-center">
-                    <a class="navbar-brand me-2">
-                        <img src="~/img/calemi.png" height="25px" alt="Icono Calendario" loading="lazy" />
-                    </a>
-                    <span class="navbar-brand mb-0 h5 text-white">Agenda</span>
-                </div>      
-
-
-                
-                <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center p-3 link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="~/img/usro.png" height="25px" width="25px"/>
-                    </a>
-                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
-                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="iniciosesion">Iniciar Sesion</a></li>
-                        <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline">Menu</span>
+                    <a asp-area="" asp-controller="Home" asp-action="iniciosesion" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <img src="~/img/calemi.png" height="25px" alt="Icono Calendario" loading="lazy" class="me-2" />
+                        <span class="fs-5 d-none d-sm-inline">Agenda</span>
                     </a>
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                         <li class="nav-item">
                             <a href="#" class="nav-link align-middle px-0">
-                                <i class="fs-4 bi-house"></i> <a asp-area="" asp-controller="Home" asp-action="Index"><span class="text-white ms-1 d-none d-sm-inline">Inicio</span></a>
+                                <i class="fs-4 bi-house"></i> <a asp-area="" asp-controller="Home" asp-action="iniciosesion"><span class="text-white ms-1 d-none d-sm-inline">Inicio</span></a>
                             </a>
                         </li>
                         <li>
@@ -66,39 +40,23 @@
                             </ul>
                         </li>
                         <li>
-
                             <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-bootstrap"></i>
                                 <span class="text-white ms-1 d-none d-sm-inline">Agregar +</span>
                             </a>
-
-
                             <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                 <li class="w-100">
-
                                     <a class="nav-link px-8" asp-area="" asp-controller="Home" asp-action="agregarevento">
                                         Evento
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-0">
-                                        <span class="text-white d-none d-sm-inline">Tarea</span>
-                                    </a>
-                                </li>
+                                
                             </ul>
                         </li>
                         <li>
-
-
-                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-bootstrap"></i>
-                                <span class="text-white ms-1 d-none d-sm-inline">Hábitos +</span>
-                            </a>
-
-
-                            <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                            
+                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                                 <li class="w-100">
-
                                     <a class="nav-link px-8" asp-area="" asp-controller="Home" asp-action="habitos">
                                         Ver
                                     </a>
@@ -111,27 +69,25 @@
                             </ul>
                         </li>
 
+                       <li>
+                            <a class="nav-link px-8" asp-area="" asp-controller="Home" asp-action="todos_eventos">
+                                Ver eventos
+                            </a>
+                       </li>
 
-                        <a class="nav-link px-8" asp-area="" asp-controller="Home" asp-action="todos_eventos">
-                            Ver eventos
-                        </a>
-                        
                         <li>
-                            <a  asp-area="" asp-controller="Home" asp-action="lista" class="nav-link px-0 align-middle">
-                                <!--<a class="nav-link px-0" asp area="" asp-controller="Home" asp-action="Semana"> <span class="text-white d-none d-sm-inline">Semana</span></a>-->
-
-                                <i class="fs-4 bi-table"></i> <span class="text-white  d-none d-sm-inline">Eliminar</span>
+                            <a asp-area="" asp-controller="Home" asp-action="lista" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="text-white d-none d-sm-inline">Eliminar</span>
                             </a>
                         </li>
 
                         <li>
-                            <div class="dropdown">
+                            <div class="dropdown mt-2">
                                 <button type="button" class="btn btn-primary dropdown-toggle" style="background-color: rgba(77,77,77,0.25)" data-bs-toggle="dropdown">
                                     Selecciona el mes
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp area="" asp-controller="Home" asp-action="Enero">Enero</a></li>
-                                    <!--<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -->
                                     <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Febrero">Febrero</a></li>
                                     <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Marzo">Marzo</a></li>
                                     <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Abril">Abril</a></li>
@@ -143,20 +99,30 @@
                                     <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Octubre">Octubre</a></li>
                                     <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Noviembre">Noviembre</a></li>
                                     <li><a class="dropdown-item" asp asp-area="" asp-controller="Home" asp-action="Diciembre">Diciembre</a></li>
-
                                 </ul>
-
-
                             </div>
-                        <hr/>
-                       
+                        </li>
+
+                        <hr class="mt-auto" />
+
+                        <li class="dropdown mt-auto">
+                            <a href="#" class="nav-link px-0 align-middle dropdown-toggle" data-bs-toggle="dropdown">
+                                <img src="~/img/usro.png" height="25px" width="25px" class="me-2" />
+                                <span class="text-white d-none d-sm-inline">Usuario</span>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="index">Iniciar Sesión</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="">Cerrar Sesión</a></li>
+                            </ul>
+                        </li>
+
                         <li class="nav-item">
                             <a href="#" class="nav-link align-middle px-0">
-                                <i class="fs-4 bi-house"></i> <a><span class="text-white ms-1 d-none d-sm-inline">Salir</span></a>
+                                <i class="fs-4 bi-box-arrow-right"></i> <span class="text-white ms-1 d-none d-sm-inline">Salir</span>
                             </a>
                         </li>
                     </ul>
-                    <hr>
                 </div>
             </div>
 
@@ -165,14 +131,10 @@
                     @RenderBody()
                 </main>
             </div>
-            
+
         </div>
     </div>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Proyecto_TDPII - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
