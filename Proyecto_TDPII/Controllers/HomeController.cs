@@ -184,7 +184,7 @@ namespace Proyecto_TDPII.Controllers
 
         public IActionResult EditarEventos(Evento evento)
         {
-            _conexion.ActualizarEvento(evento); // Asegúrate de tener este método
+            _conexion.ActualizarEvento(evento); 
             return RedirectToAction("todos_eventos");
         }
 

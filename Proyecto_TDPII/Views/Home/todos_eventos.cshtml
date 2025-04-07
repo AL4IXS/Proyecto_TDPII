@@ -12,6 +12,7 @@
                 <th>Hora Inicio</th>
                 <th>Hora Fin</th>
                 <th>Ubicación</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -32,9 +33,9 @@
                             </form>
                          </div>
                         <div>
-                            <form asp-action="Eliminarevento" asp-controller="Home">
+                            <form asp-action="EliminarEventos" asp-controller="Home" method="post">
                                 <input type="hidden" name="id" value="@usuario.Id" />
-                                <button type="submit" class="btn btn-sm btn-warning me-1">Eliminar</button>
+                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                             </form>
                         </div>
                     </td>
