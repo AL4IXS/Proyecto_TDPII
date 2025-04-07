@@ -176,6 +176,17 @@ namespace Proyecto_TDPII.Controllers
             return View(eventos);
         }
 
+        public IActionResult EliminarEventos(int id)
+        {
+            _conexion.EliminarEvento(id);
+            return RedirectToAction("todos_eventos");
+        }
+
+        public IActionResult EditarEventos(Evento evento)
+        {
+            _conexion.ActualizarEvento(evento); // Asegúrate de tener este método
+            return RedirectToAction("todos_eventos");
+        }
 
 
 

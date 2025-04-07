@@ -6,7 +6,7 @@ namespace Proyecto_TDPII.Models
     {
 
 
-        private string conexion = "Server=localhost;Port=3306;database=proyecto_tdpp;user=root;password=root;";
+        private string conexion = "Server=localhost;Port=3308;database=proyecto_tdpp;user=root;password=root;";
 
         public bool VerificarCredenciales(Usuario u)
         {
@@ -32,5 +32,6 @@ namespace Proyecto_TDPII.Models
             cmd.ExecuteNonQuery();
 
         }
-        }
+        
     }
+}

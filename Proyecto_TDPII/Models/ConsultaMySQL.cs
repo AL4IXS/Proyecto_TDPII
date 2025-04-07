@@ -150,6 +150,36 @@ namespace Proyecto_TDPII.Models
 
             return eventos;
         }
+        public void ActualizarEvento(Evento evento)
+        {
+            using (var conexion = _connectionProvider.GetConnection())
+            {
+                conexion.Open();
+
+                var comando = new MySqlCommand(ConsultasSQL.ActualizarEvento, conexion);
+                comando.Parameters.AddWithValue("@id", evento.Id);
+                comando.Parameters.AddWithValue("@titulo", evento.Titulo);
+                comando.Parameters.AddWithValue("@fecha", evento.Fecha);
+                comando.Parameters.AddWithValue("@horaI", evento.hora_inicio);
+                comando.Parameters.AddWithValue("@horaF", evento.Hora_fin);
+                comando.Parameters.AddWithValue("@ubicacion", evento.Ubicacion);
+                comando.Parameters.AddWithValue("@descripcion", evento.Descripcion);
+
+                comando.ExecuteNonQuery();
+            }
+        }
+        public void EliminarEvento(int id)
+        {
+            using (var conexion = _connectionProvider.GetConnection())
+            {
+                conexion.Open();
+
+                var comando = new MySqlCommand(ConsultasSQL.EliminarEvento, conexion);
+                comando.Parameters.AddWithValue("@id", id);
+
+                comando.ExecuteNonQuery();
+            }
+        }
     }
 }
 

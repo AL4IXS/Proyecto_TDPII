@@ -1,8 +1,9 @@
 ﻿@model Proyecto_TDPII.Models.Evento
 
 <div class="container mt-3">
-    <h3>Registrar Evento</h3>
-    <form asp-action="GuardarEvento" asp-controller="Home" method="post">
+    <h3>Editar Evento</h3>
+    <form asp-action="EditarEventos" asp-route-id="Id" asp-controller="Home" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
         <div class="mb-3">
             <label for="titulo" class="form-label">Título del Evento</label>
             <input class="form-control" type="text" name="Titulo" id="titulo" placeholder="Ingresa el título" required />
@@ -33,6 +34,6 @@
             <textarea class="form-control" name="Descripcion" id="descripcion" rows="4"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar Evento</button>
+        <button type="submit" class="btn btn-primary">Editar Evento</button>
     </form>
 </div>
