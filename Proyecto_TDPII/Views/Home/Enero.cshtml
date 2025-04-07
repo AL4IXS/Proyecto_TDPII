@@ -11,14 +11,15 @@
     <div id="contenedor">
         <div class="card">
             <div class="mes card-header">
-                <h1 class="nombre__mes">Enero 2025</h1>
                 <div class="btn-group btn-group-sm">
-                    <a class="btn btn-secondary">Anterior</a>
-                    <a asp-action="Febrero">Siguiente</a>
+                    <a asp-action="Diciembre" class="btn btn-secondary">Anterior</a>
+                    <a asp-action="Febrero" class="btn btn-secondary">Siguiente</a>
                 </div>
+                <h1 class="nombre__mes">Enero 2025</h1>
+
             </div>
             <div class="card-body">
-                <section class="dias">
+                <section class="dias d-flex justify-content-around mb-2">
                     <div class="dias__item">Lunes</div>
                     <div class="dias__item">Martes</div>
                     <div class="dias__item">Miercoles</div>
@@ -29,6 +30,8 @@
                 </section>
 
                 <section class="calendario">
+                    <div class="calendario__dia prev"> 30</div>
+                    <div class="calendario__dia prev"> 31</div>
                     @for (int dia = 1; dia <= 31; dia++)
                     {
                         if (dia == 1)
@@ -49,20 +52,20 @@
                         }
                         else
                         {
-                        var eventosDelDia = Model.Where(e => DateTime.TryParse(e.Fecha, out var fechaConvertida) && fechaConvertida.Day == dia).ToList();
-                        <div class="calendario__dia">
-                            <strong>@dia</strong>
-                            @if (eventosDelDia.Any())
-                            {
-                                foreach (var evento in eventosDelDia)
+                            var eventosDelDia = Model.Where(e => DateTime.TryParse(e.Fecha, out var fechaConvertida) && fechaConvertida.Day == dia).ToList();
+                            <div class="calendario__dia">
+                                <strong>@dia</strong>
+                                @if (eventosDelDia.Any())
                                 {
-                                    <div class="evento">
-                                        <span>@evento.Titulo</span> - <small>@evento.Ubicacion</small>
-                                    </div>
+                                    foreach (var evento in eventosDelDia)
+                                    {
+                                        <div class="evento">
+                                            <span>@evento.Titulo</span> - <small>@evento.Ubicacion</small>
+                                        </div>
+                                    }
                                 }
-                            }
-                        </div>
-                    }
+                            </div>
+                        }
                     }
                 </section>
             </div>
