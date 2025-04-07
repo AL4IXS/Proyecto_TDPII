@@ -27,7 +27,7 @@
                     <td>@usuario.Ubicacion</td>
                     <td>
                         <div>
-                            <form asp-action="Editarevento" asp-controller="Home">
+                            <form asp-action="Editarevento" asp-controller="Home" method="post">
                                 <input type="hidden" name="id" value="@usuario.Id" />
                                 <button type="submit" class="btn btn-sm btn-warning me-1">Editar</button>
                             </form>

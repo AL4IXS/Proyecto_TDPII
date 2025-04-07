@@ -55,7 +55,10 @@ namespace Proyecto_TDPII.Controllers
         {
             return View();
         }
-
+        public IActionResult Editarevento()
+        {
+            return View();
+        }
 
         [HttpPost]
         public IActionResult InicioSesion(Usuario u)
